@@ -4,3 +4,4 @@ Kotlin Multiplatform Project Playground
 ## Dependencies
 - Networking : [http-client-common](https://github.com/Kotlin/kotlinx.serialization)
 - JSON Parser/ Serialization : [kotlinx.serializations](https://github.com/Kotlin/kotlinx.serialization)
+- Async Programming : [kotlinx.coroutines](https://github.com/Kotlin/kotlinx.coroutines)
