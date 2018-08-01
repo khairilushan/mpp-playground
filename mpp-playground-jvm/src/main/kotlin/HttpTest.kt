@@ -9,12 +9,12 @@ fun main(args: Array<String>) {
   val network = ProjectDataSource.Network(ProjectService(ProjectService.SEARCH))
   val repository = ProjectRepositoryImpl(network)
   val interactor = SearchProjectInteractor(repository)
-  interactor.execute("swift") {
-    print(Thread.currentThread().name)
+  val params = SearchProjectInteractor.Params("kotlin%20multiplatform")
+  interactor.execute(params) {
     when (it) {
-      is Success -> print(it.result)
+      is Success -> it.result.map { "${it.title} by ${it.author}" }.forEach { println(it) }
       is Failure -> print(it.message)
     }
   }
-  Thread.sleep(3000)
+  Thread.sleep(5000)
 }

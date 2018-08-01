@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class ProjectEntity(
   @SerialName("full_name") val fullName: String,
   val owner: Owner,
-  @SerialName("description") val desc: String,
+  @SerialName("description") val desc: String?,
   @SerialName("html_url") val htmlUrl: String
 ) {
   @Serializable
@@ -17,5 +17,5 @@ data class ProjectEntity(
     @SerialName("avatar_url") val avatarUrl: String
   )
 
-  fun mapToProject() = Project(fullName, desc, owner.login, owner.avatarUrl, htmlUrl)
+  fun mapToProject() = Project(fullName, desc.orEmpty(), owner.login, owner.avatarUrl, htmlUrl)
 }
