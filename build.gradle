@@ -1,0 +1,27 @@
+allprojects {
+    buildscript {
+        ext.kotlin_version = '1.2.51'
+        ext.http_client_version = '0.1.15'
+        ext.coroutines_version = '0.24.0'
+        ext.ktor_version = '0.9.3-alpha-5'
+        ext.kotlin_native_version = '0.7'
+        ext.serialization_version = '0.6.0'
+
+        repositories {
+            maven { url "https://kotlin.bintray.com/kotlinx" }
+            maven { url 'https://maven.google.com' }
+            jcenter()
+        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
+        }
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/ktor' }
+        maven { url "https://kotlin.bintray.com/kotlinx" }
+        maven { url 'https://dl.bintray.com/e5l/http-client-common' }
+    }
+}
