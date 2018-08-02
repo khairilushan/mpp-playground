@@ -1,16 +1,5 @@
-pluginManagement {
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == "kotlin-platform-common") {
-                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
-            }
-
-            if (requested.id.id == "kotlin-platform-jvm") {
-                useModule("org.jetbrains.kotlin:kotlin-gradle-plugin:${requested.version}")
-            }
-        }
-    }
-}
 rootProject.name = 'mpp-playground'
 
-include 'mpp-playground-common', 'mpp-playground-jvm'
+include 'mpp-playground-common'
+include 'mpp-playground-jvm'
+include ':mpp-playground-client-android'

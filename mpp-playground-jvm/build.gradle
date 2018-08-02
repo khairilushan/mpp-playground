@@ -1,23 +1,8 @@
-buildscript {
-    repositories {
-        jcenter()
-        maven { url "https://kotlin.bintray.com/kotlinx" }
-    }
-
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.kotlinx:kotlinx-gradle-serialization-plugin:$serialization_version"
-    }
-}
-
-plugins {
-    id 'kotlin-platform-jvm' version '1.2.51'
-}
-
+apply plugin: 'kotlin-platform-jvm'
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     compile "io.ktor.common.client:jvm:$http_client_version"
     compile "io.ktor:ktor-client-cio:$ktor_version"
