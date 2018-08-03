@@ -1,0 +1,26 @@
+apply plugin: 'kotlin-platform-native'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    expectedBy project(":mpp-playground-common")
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:0.24.0"
+    implementation "org.jetbrains.kotlinx:jsonparser-native:0.6.0"
+    implementation "io.ktor.common.client:ios:0.1.15"
+}
+
+sourceSets {
+    main {
+        kotlin.srcDir 'src/main/kotlin'
+        component {
+            target 'ios_arm64', 'ios_x64'
+            extraOpts '-module_name', 'Mpp'
+            outputKinds = [FRAMEWORK]
+        }
+    }
+    test.component {
+        target 'ios_arm64', 'ios_x64'
+    }
+}

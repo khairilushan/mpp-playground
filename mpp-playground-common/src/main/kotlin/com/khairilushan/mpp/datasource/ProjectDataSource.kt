@@ -1,6 +1,6 @@
 package com.khairilushan.mpp.datasource
 
-import com.khairilushan.mpp.datasource.network.NetworkService
+import com.khairilushan.mpp.datasource.network.SearchProjectService
 import com.khairilushan.mpp.datasource.network.entity.SearchProjectsEntity
 import com.khairilushan.mpp.interactor.SearchProjectInteractor
 import com.khairilushan.mpp.model.Project
@@ -9,11 +9,14 @@ import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
 
 interface ProjectDataSource : ProjectRepository {
-    class Network(private val service: NetworkService) : ProjectDataSource {
+
+    class Network(
+        private val searchProjectService: SearchProjectService
+    ) : ProjectDataSource {
         override fun searchProject(
             params: SearchProjectInteractor.Params
         ): Deferred<List<Project>> = async {
-            val entity = service.requestJson<SearchProjectsEntity>(params.build()).await()
+            val entity = searchProjectService.requestJson(params.build()).await()
             entity.items.map { it.mapToProject() }
         }
     }

@@ -2,12 +2,12 @@ apply plugin: 'kotlin-platform-jvm'
 apply plugin: 'kotlinx-serialization'
 
 dependencies {
+    expectedBy project(":mpp-playground-common")
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlin_version}"
     compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
     compile "io.ktor.common.client:jvm:$http_client_version"
     compile "io.ktor:ktor-client-cio:$ktor_version"
     compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime:$serialization_version"
-    expectedBy project(":mpp-playground-common")
     testCompile "junit:junit:4.12"
     testCompile "org.jetbrains.kotlin:kotlin-test"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit"

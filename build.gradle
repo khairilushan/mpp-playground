@@ -1,13 +1,5 @@
 allprojects {
     buildscript {
-        ext.kotlin_version = '1.2.51'
-        ext.http_client_version = '0.1.15'
-        ext.coroutines_version = '0.24.0'
-        ext.ktor_version = '0.9.3-alpha-5'
-        ext.kotlin_native_version = '0.7'
-        ext.serialization_version = '0.6.0'
-        ext.android_gradle_plugin_version = '3.1.3'
-
         repositories {
             jcenter()
             google()

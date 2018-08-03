@@ -7,9 +7,8 @@ import io.ktor.common.client.http.URLProtocol
 import io.ktor.common.client.request
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.async
-import kotlinx.serialization.json.JSON
 
-abstract class NetworkService {
+abstract class NetworkService<T> {
 
     open val protocol = URLProtocol.HTTPS
 
@@ -25,16 +24,16 @@ abstract class NetworkService {
 
     abstract val path: String
 
+    abstract fun parse(json: String): T
+
     val client: HttpClient by lazy { HttpClient() }
 
-    inline fun <reified ResultType : Any> requestJson(
-        params: Map<String, String>
-    ): Deferred<ResultType> = async {
+    fun requestJson(params: Map<String, String>): Deferred<T> = async {
         val response = request(params).await()
-        JSON.nonstrict.parse<ResultType>(response.body)
+        parse(response.body)
     }
 
-    fun request(
+    private fun request(
         params: Map<String, String>
     ): Deferred<HttpResponse> = async {
         client.request {

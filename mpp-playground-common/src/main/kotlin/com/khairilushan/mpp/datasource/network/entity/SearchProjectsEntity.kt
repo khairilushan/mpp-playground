@@ -1,11 +1,23 @@
 package com.khairilushan.mpp.datasource.network.entity
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonObject
 
-@Serializable
-data class SearchProjectsEntity(
-    val items: List<ProjectEntity>,
-    @SerialName("total_count") val total: Int,
-    @SerialName("incomplete_results") val incompleteResults: Boolean
-)
+data class SearchProjectsEntity private constructor(
+    var items: List<ProjectEntity> = listOf(),
+    var total: Int? = null,
+    var incompleteResults: Boolean? = null
+) : Entity {
+    companion object {
+        fun create(jsonObject: JsonObject) = SearchProjectsEntity().also {
+            it.parse(jsonObject)
+        }
+    }
+
+    override fun parse(jsonObject: JsonObject) {
+        total = jsonObject.getPrimitive("total_count").intOrNull
+        incompleteResults = jsonObject.getPrimitive("incomplete_results").booleanOrNull
+        items = jsonObject.getArray("items").content
+            .map { it as JsonObject }
+            .map { ProjectEntity.create(it) }
+    }
+}
