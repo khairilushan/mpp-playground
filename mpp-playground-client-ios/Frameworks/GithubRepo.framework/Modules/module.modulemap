@@ -1,0 +1,6 @@
+framework module GithubRepo {
+    umbrella header "GithubRepo.h"
+
+    export *
+    module * { export * }
+}

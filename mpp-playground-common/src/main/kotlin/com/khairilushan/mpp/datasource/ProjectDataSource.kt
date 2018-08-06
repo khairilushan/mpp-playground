@@ -1,7 +1,6 @@
 package com.khairilushan.mpp.datasource
 
 import com.khairilushan.mpp.datasource.network.SearchProjectService
-import com.khairilushan.mpp.datasource.network.entity.SearchProjectsEntity
 import com.khairilushan.mpp.interactor.SearchProjectInteractor
 import com.khairilushan.mpp.model.Project
 import com.khairilushan.mpp.repository.ProjectRepository

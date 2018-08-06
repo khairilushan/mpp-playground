@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.android.UI
 
-const val DEFAULT_KEYWORD = "kotlin"
+val DEFAULT_KEYWORD = "kotlin"
 
 class MainActivity : AppCompatActivity() {
     private val adapter = ProjectAdapter()

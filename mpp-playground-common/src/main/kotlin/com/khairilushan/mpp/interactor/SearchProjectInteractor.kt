@@ -18,7 +18,7 @@ class SearchProjectInteractor(
         return repository.searchProject(params)
     }
 
-    class Params(val keyword: String) : RequestParams {
+    class Params(private val keyword: String) : RequestParams {
         override fun build(): Map<String, String> = mapOf(
             "q" to keyword
         )
