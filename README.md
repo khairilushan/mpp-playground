@@ -11,4 +11,4 @@ Kotlin Multiplatform Project Playground
 - [mpp-playground-jvm](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-jvm) : JVM Platform specific implementation.
 - mpp-playground-ios : iOS Platform specific implementation.
 - [mpp-playground-client-android](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-client-android) : Android application that will using the shared code.
-- mpp-playground-client-ios : iOS application that will using the shared code.
+- [mpp-playground-client-ios](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-client-ios) : iOS application that will using the shared code.
