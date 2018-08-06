@@ -7,9 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
 import com.khairilushan.mpp.datasource.ProjectDataSource
 import com.khairilushan.mpp.datasource.network.SearchProjectService
-import com.khairilushan.mpp.interactor.Failure
+import com.khairilushan.mpp.interactor.Result
 import com.khairilushan.mpp.interactor.SearchProjectInteractor
-import com.khairilushan.mpp.interactor.Success
 import com.khairilushan.mpp.repository.ProjectRepositoryImpl
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.CommonPool
@@ -54,9 +53,9 @@ class MainActivity : AppCompatActivity() {
         val params = SearchProjectInteractor.Params(keyword)
         interactor.execute(params) { result ->
             when (result) {
-                is Success ->
+                is Result.Success ->
                     adapter.setItems(result.result.map { it.mapToViewModel() })
-                is Failure ->
+                is Result.Failure ->
                     Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
             }
         }

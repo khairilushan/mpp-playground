@@ -25,13 +25,16 @@ sourceSets {
     }
 }
 
-task copyFramework() << {
-    def srcFile = tasks['compileDebugIos_x64KotlinNative'].outputFile
-    def targetDir = getProperty("konan.configuration.build.dir")
-    copy {
-        from srcFile.parent
-        into targetDir
-        include 'Mpp.framework/**'
-        include 'Mpp.framework.dSYM'
+// Source : https://github.com/JetBrains/kotlin-mpp-example/pull/3
+task copyFramework() {
+    doLast {
+        def srcFile = tasks['compileDebugIos_x64KotlinNative'].outputFile
+        def targetDir = getProperty("konan.configuration.build.dir")
+        copy {
+            from srcFile.parent
+            into targetDir
+            include 'Mpp.framework/**'
+            include 'Mpp.framework.dSYM'
+        }
     }
 }

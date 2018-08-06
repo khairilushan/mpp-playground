@@ -6,17 +6,18 @@ import kotlinx.coroutines.experimental.launch
 import kotlinx.coroutines.experimental.withContext
 import kotlin.coroutines.experimental.CoroutineContext
 
-
-sealed class Result<T>
-data class Success<T>(val result: T) : Result<T>()
-data class Failure<T>(val errorCode: Int, val message: String) : Result<T>()
+@Suppress("unused")
+sealed class Result<out T : Any> {
+    data class Success<T : Any>(val result: T) : Result<T>()
+    data class Failure(val errorCode: Int, val message: String) : Result<Nothing>()
+}
 
 interface RequestParams {
     fun build(): Map<String, String>
 }
 
-abstract class Interactor<P : RequestParams, R>(
-    private val preExecutionContext: CoroutineContext,
+abstract class Interactor<P : RequestParams, R: Any>(
+    private val executionContext: CoroutineContext,
     private val postExecutionContext: CoroutineContext
 ) {
 
@@ -25,13 +26,13 @@ abstract class Interactor<P : RequestParams, R>(
     abstract fun build(params: P? = null): Deferred<R>
 
     fun execute(params: P? = null, completion: (Result<R>) -> Unit) {
-        launch(preExecutionContext + job) {
+        launch(executionContext + job) {
             try {
                 val result = build(params).await()
-                withContext(postExecutionContext) { completion(Success(result)) }
+                withContext(postExecutionContext) { completion(Result.Success(result)) }
             } catch (error: Throwable) {
                 withContext(postExecutionContext) {
-                    completion(Failure(error.hashCode(), error.message.orEmpty()))
+                    completion(Result.Failure(error.hashCode(), error.message.orEmpty()))
                 }
             }
         }

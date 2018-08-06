@@ -7,10 +7,10 @@ import kotlin.coroutines.experimental.CoroutineContext
 
 class SearchProjectInteractor(
     private val repository: ProjectRepository,
-    preExecutionContext: CoroutineContext,
+    executionContext: CoroutineContext,
     postExecutionContext: CoroutineContext
 ) : Interactor<SearchProjectInteractor.Params, List<Project>>(
-    preExecutionContext, postExecutionContext
+    executionContext, postExecutionContext
 ) {
 
     override fun build(params: Params?): Deferred<List<Project>> {
