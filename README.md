@@ -9,6 +9,6 @@ Kotlin Multiplatform Project Playground
 ## Project Structure
 - [mpp-playground-common](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-common) : Kotlin Multiplatform's Common module. Contains Business logic, Data class and all shared element.
 - [mpp-playground-jvm](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-jvm) : JVM Platform specific implementation.
-- mpp-playground-ios : iOS Platform specific implementation.
+- [mpp-playground-native](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-native) : iOS Platform specific implementation.
 - [mpp-playground-client-android](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-client-android) : Android application that will using the shared code.
 - [mpp-playground-client-ios](https://github.com/RR12/mpp-playground/tree/master/mpp-playground-client-ios) : iOS application that will using the shared code.
