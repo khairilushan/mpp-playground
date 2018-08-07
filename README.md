@@ -16,5 +16,5 @@ Kotlin Multiplatform Project Playground
 ## TODO
 * [ ] Better multi-threading mechanism for each platform. Kotlin Coroutines still gives [this issue](https://github.com/JetBrains/kotlin-native/issues/1815) and the Libarary its self isn't quite ready yet to support Kotlin/Native([Feature request](https://github.com/Kotlin/kotlinx.coroutines/issues/462))
 * [ ] Common Networking solution. Will using [http-client-common](https://github.com/Kotlin/kotlinx.serialization), but for now it still gives us error. Waiting [this feature](https://github.com/Kotlin/kotlinx.coroutines/issues/462) to be ready in Kotlin Coroutines library 
-* [ ] Sometime still getting `null` response while doing network request. 
-* [ ] Sometime still getting Serialization error `Input wasn't consumed fully`
+* [*] Sometime still getting `null` response while doing network request. 
+* [*] Sometime still getting Serialization error `Input wasn't consumed fully`
