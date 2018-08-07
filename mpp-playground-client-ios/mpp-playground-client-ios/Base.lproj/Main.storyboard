@@ -17,10 +17,56 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Cari di Github.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d7G-as-djK">
+                                <rect key="frame" x="16" y="84" width="343" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="9Zd-OM-QVy"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XZI-h0-Lj7">
+                                <rect key="frame" x="298" y="84" width="53" height="40"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <state key="normal" title="SEARCH">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSearchButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sQe-LJ-Enx"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Atk-ZE-HqV">
+                                <rect key="frame" x="0.0" y="124" width="375" height="543"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="fUY-MZ-hit"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="TOr-g4-AGD"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="XZI-h0-Lj7" firstAttribute="bottom" secondItem="d7G-as-djK" secondAttribute="bottom" id="6aL-M3-I8R"/>
+                            <constraint firstItem="XZI-h0-Lj7" firstAttribute="top" secondItem="d7G-as-djK" secondAttribute="top" id="Mek-af-Lzo"/>
+                            <constraint firstItem="XZI-h0-Lj7" firstAttribute="trailing" secondItem="d7G-as-djK" secondAttribute="trailing" constant="-8" id="Nqk-53-vpM"/>
+                            <constraint firstItem="d7G-as-djK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="OIU-Jv-Nzu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d7G-as-djK" secondAttribute="trailing" constant="16" id="RON-ON-Icp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Atk-ZE-HqV" secondAttribute="trailing" id="XaG-mI-qtA"/>
+                            <constraint firstItem="d7G-as-djK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="deo-En-24B"/>
+                            <constraint firstItem="Atk-ZE-HqV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eNh-Bx-7zL"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Atk-ZE-HqV" secondAttribute="bottom" id="kt6-kt-poj"/>
+                            <constraint firstItem="Atk-ZE-HqV" firstAttribute="top" secondItem="d7G-as-djK" secondAttribute="bottom" id="sEF-Jw-QI2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="oHQ-99-5Ap"/>
+                    <connections>
+                        <outlet property="searchButton" destination="XZI-h0-Lj7" id="QfS-du-KCk"/>
+                        <outlet property="searchEditText" destination="d7G-as-djK" id="QzE-F1-waT"/>
+                        <outlet property="tableView" destination="Atk-ZE-HqV" id="3dc-F3-Gaq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -9,7 +9,7 @@ internal class SearchProjectService : NetworkService<SearchProjectsEntity>() {
 
     override fun parse(json: String): SearchProjectsEntity {
         print(json)
-        val element = JsonTreeParser(json).readFully()
+        val element = JsonTreeParser(json).read()
         return (element as JsonObject).run { SearchProjectsEntity.create(this) }
     }
 }
