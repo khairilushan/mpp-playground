@@ -2,7 +2,7 @@ package com.khairilushan.mpp.datasource.network.entity
 
 import kotlinx.serialization.json.JsonObject
 
-data class SearchProjectsEntity private constructor(
+internal data class SearchProjectsEntity private constructor(
     var items: List<ProjectEntity> = listOf(),
     var total: Int? = null,
     var incompleteResults: Boolean? = null

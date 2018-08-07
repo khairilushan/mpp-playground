@@ -2,6 +2,6 @@ package com.khairilushan.mpp.datasource.network.entity
 
 import kotlinx.serialization.json.JsonObject
 
-interface Entity {
+internal interface Entity {
     fun parse(jsonObject: JsonObject)
 }

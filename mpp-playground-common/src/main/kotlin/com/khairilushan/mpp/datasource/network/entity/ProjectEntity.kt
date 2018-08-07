@@ -3,7 +3,7 @@ package com.khairilushan.mpp.datasource.network.entity
 import com.khairilushan.mpp.model.Project
 import kotlinx.serialization.json.JsonObject
 
-data class ProjectEntity private constructor(
+internal data class ProjectEntity private constructor(
     var fullName: String? = null,
     var owner: Owner? = null,
     var desc: String? = null,

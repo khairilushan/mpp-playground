@@ -5,25 +5,16 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.widget.Toast
-import com.khairilushan.mpp.datasource.ProjectDataSource
-import com.khairilushan.mpp.datasource.network.SearchProjectService
 import com.khairilushan.mpp.interactor.Result
 import com.khairilushan.mpp.interactor.SearchProjectInteractor
-import com.khairilushan.mpp.repository.ProjectRepositoryImpl
+import com.khairilushan.mpp.interactor.createSearchProjectInteractor
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.experimental.CommonPool
-import kotlinx.coroutines.experimental.android.UI
 
 val DEFAULT_KEYWORD = "kotlin"
 
 class MainActivity : AppCompatActivity() {
     private val adapter = ProjectAdapter()
-    private val interactor: SearchProjectInteractor by lazy {
-        val service = SearchProjectService()
-        val network = ProjectDataSource.Network(service)
-        val repository = ProjectRepositoryImpl(network)
-        SearchProjectInteractor(repository, CommonPool, UI)
-    }
+    private val interactor: SearchProjectInteractor by lazy { createSearchProjectInteractor() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +43,13 @@ class MainActivity : AppCompatActivity() {
         val keyword = if (currentText.isEmpty()) DEFAULT_KEYWORD else currentText
         val params = SearchProjectInteractor.Params(keyword)
         interactor.execute(params) { result ->
-            when (result) {
-                is Result.Success ->
-                    adapter.setItems(result.result.map { it.mapToViewModel() })
-                is Result.Failure ->
-                    Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+            runOnUiThread {
+                when (result) {
+                    is Result.Success ->
+                        adapter.setItems(result.result.map { it.mapToViewModel() })
+                    is Result.Failure ->
+                        Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

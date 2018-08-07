@@ -1,12 +1,9 @@
 package com.khairilushan.mpp.datasource.network
 
+import com.khairilushan.mpp.utils.request
 import io.ktor.common.client.HttpClient
-import io.ktor.common.client.HttpResponse
 import io.ktor.common.client.http.HttpMethod
 import io.ktor.common.client.http.URLProtocol
-import io.ktor.common.client.request
-import kotlinx.coroutines.experimental.Deferred
-import kotlinx.coroutines.experimental.async
 
 abstract class NetworkService<T> {
 
@@ -28,26 +25,16 @@ abstract class NetworkService<T> {
 
     val client: HttpClient by lazy { HttpClient() }
 
-    fun requestJson(params: Map<String, String>): Deferred<T> = async {
-        val response = request(params).await()
-        parse(response.body)
-    }
-
-    private fun request(
-        params: Map<String, String>
-    ): Deferred<HttpResponse> = async {
-        client.request {
-            method = httpMethod
-            body = requestBody
-            headers = this@NetworkService.headers.toMutableMap()
-            url.apply {
-                protocol = this@NetworkService.protocol
-                port = this@NetworkService.port
-                host = baseUrl
-                val query = params.map { "${it.key}=${it.value}" }.joinToString("&")
-                encodedPath = "$path?$query"
-            }
-        }
+    internal fun requestJson(params: Map<String, String>, completion: (T) -> Unit) {
+        request(
+            httpMethod = httpMethod.value,
+            requestHeaders = headers,
+            baseUrl = baseUrl,
+            path = path,
+            params = params,
+            completion = {
+                completion(parse(it))
+            })
     }
 
 }

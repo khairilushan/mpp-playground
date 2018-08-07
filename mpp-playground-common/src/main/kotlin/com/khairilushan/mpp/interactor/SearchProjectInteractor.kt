@@ -1,21 +1,25 @@
 package com.khairilushan.mpp.interactor
 
+import com.khairilushan.mpp.datasource.ProjectDataSourceNetwork
+import com.khairilushan.mpp.datasource.network.SearchProjectService
 import com.khairilushan.mpp.model.Project
 import com.khairilushan.mpp.repository.ProjectRepository
-import kotlinx.coroutines.experimental.Deferred
-import kotlin.coroutines.experimental.CoroutineContext
+import com.khairilushan.mpp.repository.ProjectRepositoryImpl
+
+fun createSearchProjectInteractor(): SearchProjectInteractor {
+    val service = SearchProjectService()
+    val network = ProjectDataSourceNetwork(service)
+    val repository = ProjectRepositoryImpl(network)
+    return SearchProjectInteractor(repository)
+}
 
 class SearchProjectInteractor(
-    private val repository: ProjectRepository,
-    executionContext: CoroutineContext,
-    postExecutionContext: CoroutineContext
-) : Interactor<SearchProjectInteractor.Params, List<Project>>(
-    executionContext, postExecutionContext
-) {
+    private val repository: ProjectRepository
+) : Interactor<SearchProjectInteractor.Params, List<Project>>() {
 
-    override fun build(params: Params?): Deferred<List<Project>> {
+    override fun build(params: Params?, completion: (Result<List<Project>>) -> Unit) {
         if (params == null) throw IllegalArgumentException("params should not be null")
-        return repository.searchProject(params)
+        return repository.searchProject(params, completion)
     }
 
     class Params(private val keyword: String) : RequestParams {
