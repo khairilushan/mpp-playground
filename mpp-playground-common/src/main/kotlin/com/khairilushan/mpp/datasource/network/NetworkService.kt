@@ -1,40 +1,43 @@
 package com.khairilushan.mpp.datasource.network
 
-import com.khairilushan.mpp.utils.request
-import io.ktor.common.client.HttpClient
-import io.ktor.common.client.http.HttpMethod
-import io.ktor.common.client.http.URLProtocol
+import com.khairilushan.mpp.utils.ApplicationDispatcher
+import io.ktor.client.HttpClient
+import io.ktor.client.request.request
+import io.ktor.http.HttpMethod
+import io.ktor.http.URLProtocol
+import kotlinx.coroutines.experimental.launch
 
 abstract class NetworkService<T> {
 
-    open val protocol = URLProtocol.HTTPS
+    internal open val baseUrl = "api.github.com"
 
-    open val port = 443
+    internal open val requestBody: Any? = null
 
-    open val baseUrl = "api.github.com"
+    internal open val headers: Map<String, List<String>> = mapOf()
 
-    open val httpMethod = HttpMethod.Get
+    internal abstract val path: String
 
-    open val requestBody: String? = null
+    internal abstract fun parse(json: String): T
 
-    open val headers: Map<String, List<String>> = mapOf()
+    internal open val httpMethod = HttpMethod.Get
 
-    abstract val path: String
-
-    abstract fun parse(json: String): T
-
-    val client: HttpClient by lazy { HttpClient() }
+    private val client: HttpClient by lazy { HttpClient() }
 
     internal fun requestJson(params: Map<String, String>, completion: (T) -> Unit) {
-        request(
-            httpMethod = httpMethod.value,
-            requestHeaders = headers,
-            baseUrl = baseUrl,
-            path = path,
-            params = params,
-            completion = {
-                completion(parse(it))
-            })
+        launch(ApplicationDispatcher) {
+            val response: String = client.request {
+                method = httpMethod
+                requestBody?.let { body = it }
+                url.apply {
+                    protocol = URLProtocol.HTTPS
+                    port = 443
+                    host = baseUrl
+                    val query = params.map { "${it.key}=${it.value}" }.joinToString("&")
+                    encodedPath = "$path?$query"
+                }
+            }
+            completion(parse(response))
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.khairilushan.mpp.android
+package com.khairilushan.mpp.client.android
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

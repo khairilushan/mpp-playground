@@ -8,7 +8,7 @@ dependencies {
     expectedBy project(":mpp-playground-common")
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:0.24.0"
     implementation "org.jetbrains.kotlinx:jsonparser-native:0.6.0"
-    implementation "io.ktor.common.client:ios:0.1.15"
+    implementation "io.ktor:ktor-client-ios:0.9.4-alpha-2"
 }
 
 sourceSets {

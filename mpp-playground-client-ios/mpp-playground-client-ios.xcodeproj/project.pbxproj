@@ -69,7 +69,6 @@
 		2D984FB72118BA5D00408E91 /* Mpp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Mpp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D984FB92118BA5D00408E91 /* Mpp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Mpp.h; sourceTree = "<group>"; };
 		2D984FBA2118BA5D00408E91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2D984FC92118BFEA00408E91 /* KotlinNative.kt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = KotlinNative.kt; sourceTree = "<group>"; };
 		2DFA222E21154B3200105F10 /* mpp-playground-client-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mpp-playground-client-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFA223121154B3200105F10 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DFA223321154B3200105F10 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,9 +88,8 @@
 		9981F5C14288DFEF61E18F44 /* Pods_mpp_playground_client_iosTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mpp_playground_client_iosTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5AF7795DE2F5D5E40058021 /* Pods-mpp-playground-client-ios.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mpp-playground-client-ios.release.xcconfig"; path = "Pods/Target Support Files/Pods-mpp-playground-client-ios/Pods-mpp-playground-client-ios.release.xcconfig"; sourceTree = "<group>"; };
 		CFEB85C8E5FE95AF355B8F76 /* Pods_mpp_playground_client_ios.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mpp_playground_client_ios.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D33B26E1BA9D01BB73131452 /* HttpClient.kt */ = {isa = PBXFileReference; lastKnownFileType = file.kt; path = HttpClient.kt; sourceTree = "<group>"; };
+		D33B229625BB9CBD2ADF537B /* Dispatcher.kt */ = {isa = PBXFileReference; lastKnownFileType = file.kt; path = Dispatcher.kt; sourceTree = "<group>"; };
 		D33B29D3B8A3B97EA75C2605 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = file.gitignore; path = .gitignore; sourceTree = "<group>"; };
-		D33B2AC58CD473D87F06F10D /* Coroutines.kt */ = {isa = PBXFileReference; lastKnownFileType = file.kt; path = Coroutines.kt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,7 +165,6 @@
 		2D984FC82118BFEA00408E91 /* kotlin */ = {
 			isa = PBXGroup;
 			children = (
-				2D984FC92118BFEA00408E91 /* KotlinNative.kt */,
 				2D984FCA2118BFEA00408E91 /* com */,
 			);
 			path = kotlin;
@@ -269,8 +266,7 @@
 		D33B2EAC7E96902F6C3EA962 /* utils */ = {
 			isa = PBXGroup;
 			children = (
-				D33B2AC58CD473D87F06F10D /* Coroutines.kt */,
-				D33B26E1BA9D01BB73131452 /* HttpClient.kt */,
+				D33B229625BB9CBD2ADF537B /* Dispatcher.kt */,
 			);
 			path = utils;
 			sourceTree = "<group>";

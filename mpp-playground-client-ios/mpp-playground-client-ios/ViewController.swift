@@ -50,11 +50,13 @@ final class ViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let interactor = MppInteractor_.createSearchProjectInteractor()
         let params = MppSearchProjectInteractorParams(keyword: keyword)
         interactor.execute(params: params) { [weak self] (result) -> MppStdlibUnit in
-            if let success = result as? MppResultSuccess,
-               let projects = success.result as? [MppProject] {
-                self?.reloadData(projects)
-            } else if let failure = result as? MppResultFailure {
-                print(failure.message)
+            DispatchQueue.main.async { [weak self] in
+                if let success = result as? MppResultSuccess,
+                   let projects = success.result as? [MppProject] {
+                    self?.reloadData(projects)
+                } else if let failure = result as? MppResultFailure {
+                    print(failure.message)
+                }
             }
             return MppStdlibUnit()
         }

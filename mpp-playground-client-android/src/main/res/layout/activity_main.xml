@@ -12,7 +12,7 @@
         android:layout_margin="16dp"
         android:background="@drawable/rect_rounded_corner_grey_border"
         android:gravity="center_vertical"
-        android:hint="@string/search"
+        android:hint="@string/search_in_github"
         android:paddingLeft="8dp"
         android:paddingRight="80dp"
         app:layout_constraintLeft_toLeftOf="parent"

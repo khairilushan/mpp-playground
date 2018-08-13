@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MPP Playground</string>
-    <string name="search">Cari di Github.com</string>
+    <string name="search_in_github">Cari di Github.com</string>
+    <string name="search">Search</string>
 </resources>
