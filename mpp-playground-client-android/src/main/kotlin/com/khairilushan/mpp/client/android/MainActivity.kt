@@ -1,34 +1,53 @@
 package com.khairilushan.mpp.client.android
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import com.khairilushan.mpp.interactor.Result
-import com.khairilushan.mpp.interactor.SearchProjectInteractor
-import com.khairilushan.mpp.interactor.createSearchProjectInteractor
+import com.khairilushan.mpp.viewmodel.ProjectItemViewModel
+import com.khairilushan.mpp.viewmodel.SearchProjectViewModel
+import com.khairilushan.mpp.viewmodel.SearchProjectViewModelImpl
 import kotlinx.android.synthetic.main.activity_main.*
 
-val DEFAULT_KEYWORD = "kotlin"
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchProjectViewModel.Outputs {
     private val adapter = ProjectAdapter()
-    private val interactor: SearchProjectInteractor by lazy { createSearchProjectInteractor() }
+    private val viewModel: SearchProjectViewModel.Inputs by lazy {
+        SearchProjectViewModelImpl(this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupRecyclerView()
+        setupSearchEditText()
         setupSearchButton()
-        searchProject()
+        viewModel.onViewCreated()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewModel.onViewDestroyed()
+    }
+
+    private fun setupSearchEditText() {
+        editTextSearch.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                viewModel.onSearchTextFieldChanged(p0.toString())
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        })
     }
 
     private fun setupSearchButton() {
-        buttonSearch.setOnClickListener {
-            if (editTextSearch?.text.toString().isEmpty()) return@setOnClickListener
-            searchProject()
-        }
+        buttonSearch.setOnClickListener { viewModel.onSearchButtonClicked() }
     }
 
     private fun setupRecyclerView() {
@@ -38,19 +57,25 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun searchProject() {
-        val currentText = editTextSearch.text?.toString().orEmpty()
-        val keyword = if (currentText.isEmpty()) DEFAULT_KEYWORD else currentText
-        val params = SearchProjectInteractor.Params(keyword)
-        interactor.execute(params) { result ->
-            runOnUiThread {
-                when (result) {
-                    is Result.Success ->
-                        adapter.setItems(result.result.map { it.mapToViewModel() })
-                    is Result.Failure ->
-                        Toast.makeText(this, result.message, Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+    override fun startLoading() {
+        progressBar.visibility = View.VISIBLE
+    }
+
+    override fun finishLoading() {
+        progressBar.visibility = View.GONE
+    }
+
+    override fun shouldUpdateData(data: List<ProjectItemViewModel>) {
+        adapter.setItems(data)
+    }
+
+    override fun shouldDismissKeyboard() {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(editTextSearch.windowToken, 0)
+
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
     }
 }

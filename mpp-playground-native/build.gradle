@@ -18,6 +18,7 @@ sourceSets {
             target 'ios_arm64', 'ios_x64'
             outputKinds = [FRAMEWORK]
             baseName = 'Mpp'
+            extraOpts '--disable', 'devirtualization', '-module_name', ''
         }
     }
     test.component {

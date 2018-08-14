@@ -28,7 +28,7 @@ class ProjectTableViewCell: UITableViewCell, ReusableCell {
             .isActive = true
     }
 
-    func bind(with project: MppProject) {
+    func bind(with project: ProjectItemViewModel) {
         textTitle.text = project.title
         textDescription.text = project.desc
         textAuthor.text = project.author

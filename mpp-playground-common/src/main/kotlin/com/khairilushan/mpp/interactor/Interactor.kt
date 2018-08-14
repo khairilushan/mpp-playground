@@ -1,5 +1,8 @@
 package com.khairilushan.mpp.interactor
 
+import com.khairilushan.mpp.utils.MainDispatcher
+import kotlinx.coroutines.experimental.launch
+
 @Suppress("unused")
 sealed class Result<out T : Any> {
     data class Success<T : Any>(val result: T) : Result<T>()
@@ -15,6 +18,10 @@ abstract class Interactor<P : RequestParams, R : Any> {
     abstract fun build(params: P? = null, completion: (Result<R>) -> Unit)
 
     fun execute(params: P? = null, completion: (Result<R>) -> Unit) {
-        build(params, completion)
+        build(params) {
+            launch(MainDispatcher) {
+                completion(it)
+            }
+        }
     }
 }
